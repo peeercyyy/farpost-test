@@ -80,6 +80,7 @@
   flex: none;
   order: 0;
   flex-grow: 0;
+  text-decoration: none;
 }
 
 .bulletin__header_info_dash {
@@ -198,4 +199,10 @@
   flex: none;
   order: 2;
   flex-grow: 0;
+}
+
+.bulletin__main_subject_img {
+  width: 191px;
+  height: 165px;
+  
 }

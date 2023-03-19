@@ -9,7 +9,9 @@ const BulletinMain = ({bulletin}) => {
           <p className='bulletin__main_subject_text'>{bulletin.bulletinText}</p>
         </div>
         <div className='bulletin__main_subject_rectangle'></div>
-        <div className='bulletin__main_subject_gallery'></div>
+        <div className='bulletin__main_subject_gallery'>
+          {bulletin.bulletinImagees.length > 0 ? bulletin.bulletinImagees.map(photo => <img className='bulletin__main_subject_img' src={photo} alt='Изображение объявления'></img>) : ''}
+        </div>
       </div>
     </div>
   )
