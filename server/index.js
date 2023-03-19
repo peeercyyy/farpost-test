@@ -1,11 +1,18 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express from 'express';
+import path from 'path';
+import { mockData } from './src/mockData.js';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+const port = 3001;
+
+app.get('/bulletin_data', (req, res) => {
+  res.send(mockData);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});

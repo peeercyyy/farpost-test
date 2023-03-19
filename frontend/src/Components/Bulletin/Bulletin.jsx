@@ -1,7 +1,7 @@
 import BulletinHeader from './BulletinHeader'
 import BulletinMain from './BulletinMain'
 
-const Bulletin = (bulletin) => {
+const Bulletin = ({bulletin}) => {
   return (
     <div className='bulletin'>
       <BulletinHeader bulletin={bulletin} />
@@ -10,4 +10,4 @@ const Bulletin = (bulletin) => {
   )
 }
 
-export default Bulletin
+export default Bulletin;
