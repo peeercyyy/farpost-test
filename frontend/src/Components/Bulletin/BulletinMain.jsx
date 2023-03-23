@@ -1,4 +1,4 @@
-const BulletinMain = ({bulletin}) => {
+const BulletinMain = ({ bulletin }) => {
   return (
     <div className='bulletin__main'>
       <div className="bulletin__main_subject">
