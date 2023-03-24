@@ -266,6 +266,7 @@
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
+  border-radius: 4px;
 }
 
 .modal__content {
@@ -290,4 +291,8 @@
 .modal__body textarea {
   width: 99%;
   height: 150px;
+}
+
+.modal_error {
+  border: 1px solid red;
 }

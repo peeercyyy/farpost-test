@@ -47,7 +47,7 @@ function App() {
   function handleKeyDown(event) {
     if (isModalVisible) {
       if (event.key === 'Escape') {
-        setIsModalVisible(false);
+        handleModalClose();
       }
     } else {
       if (event.keyCode === 32) {
@@ -59,6 +59,7 @@ function App() {
         const solution = 'approve';
         const comment = '';
         setNewData((prevData) => changeNewData(prevData, Number(bulletinId), solution, comment, data[focusedBulletin]));
+
         if (classList.contains('approve')) {
         } else if (classList.contains('decline') || classList.contains('escalate')) {
           classList.remove('decline', 'escalate');
@@ -66,6 +67,7 @@ function App() {
         } else {
           classList.add('approve');
         }
+
         setBulletin((prevBulletin) => (prevBulletin === data.length - 1 ? 0 : prevBulletin + 1));
         bulletins.current[focusedBulletin === data.length - 1 ? 0 : focusedBulletin + 1].focus();
       } else if (event.shiftKey && event.key === 'Enter') {
@@ -108,14 +110,21 @@ function App() {
     const classList = currentBulletin.classList;
     const solution = type;
     const comment = modalText;
+    let isValid = true;
     if (type === 'decline') {
-      setNewData((prevData) => changeNewData(prevData, Number(bulletinId), solution, comment, data[focusedBulletin]));
-      if (classList.contains('decline')) {
-      } else if (classList.contains('approve') || classList.contains('escalate')) {
-        classList.remove('approve', 'escalate');
-        classList.add('decline');
+      if (modalText.length !== 0) {
+        setNewData((prevData) => changeNewData(prevData, Number(bulletinId), solution, comment, data[focusedBulletin]));
+        if (classList.contains('decline')) {
+        } else if (classList.contains('approve') || classList.contains('escalate')) {
+          classList.remove('approve', 'escalate');
+          classList.add('decline');
+        } else {
+          classList.add('decline');
+        }
       } else {
-        classList.add('decline');
+        isValid = false;
+        const textarea = document.querySelector('.modal__textarea');
+        textarea.classList.add('modal_error');
       }
     } else if (type === 'escalate') {
       setNewData((prevData) => changeNewData(prevData, Number(bulletinId), solution, comment, data[focusedBulletin]));
@@ -127,9 +136,15 @@ function App() {
         classList.add('escalate');
       }
     }
+    if (isValid) {
+      setIsModalVisible(false);
+      setBulletin((prevBulletin) => (prevBulletin === data.length - 1 ? 0 : prevBulletin + 1));
+      bulletins.current[focusedBulletin === data.length - 1 ? 0 : focusedBulletin + 1].focus();
+    }
+  };
+
+  const handleModalClose = () => {
     setIsModalVisible(false);
-    setBulletin((prevBulletin) => (prevBulletin === data.length - 1 ? 0 : prevBulletin + 1));
-    bulletins.current[focusedBulletin === data.length - 1 ? 0 : focusedBulletin + 1].focus();
   };
 
   const changeNewData = (prevData, idToReplace, newSolution, newComment, newData) => {
@@ -194,6 +209,7 @@ function App() {
           props={{ type: modalType }}
           onTextChange={handleModalTextChange}
           handleModalSubmit={handleModalSubmit}
+          handleModalClose={handleModalClose}
         />
       )}
     </div>
