@@ -409,3 +409,8 @@
   align-self: stretch;
   flex-grow: 0;
 }
+
+.attention {
+  text-align: center;
+  color: red;
+}

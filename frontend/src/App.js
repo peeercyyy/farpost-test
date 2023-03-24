@@ -169,14 +169,23 @@ function App() {
   };
 
   const sendData = (result) => {
-    axios
-      .post('/result', result)
-      .then((res) => console.log(res))
-      .then((offset += limit))
-      .then(setData([]))
-      .then(setNewData([]))
-      .then(getData())
-      .catch((error) => console.error(error));
+    if (result.length === data.length) {
+      axios
+        .post('/result', result)
+        .then((res) => console.log(res))
+        .then((offset += limit))
+        .then(setData([]))
+        .then(setNewData([]))
+        .then(getData())
+        .catch((error) => console.error(error));
+    } else {
+      const app = document.getElementById('root');
+      const el = document.createElement('h2');
+      el.classList.add('attention');
+      el.textContent = 'Не по всем объявлениям принято решение';
+      app.prepend(el);
+      setTimeout(() => el.remove(), 2000);
+    }
   };
 
   return (
