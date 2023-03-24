@@ -24,7 +24,7 @@ app.get('/bulletin_data', (req, res) => {
 });
 
 app.post('/result', jsonParser, (req, res) => {
-  fs.appendFileSync('./result/result.js', JSON.stringify(req.body), 'utf-8');
+  fs.appendFileSync(`${__dirname}/result/result.js`, JSON.stringify(req.body), 'utf-8');
   res.status(200).end();
 });
 
