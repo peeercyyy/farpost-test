@@ -3,6 +3,7 @@ import axios from 'axios';
 import Bulletin from './Components/Bulletin/Bulletin';
 import './App.css';
 import Modal from './Components/Modal/Modal';
+import Info from './Components/Info/Info';
 
 let limit = 10;
 let offset = 0;
@@ -187,23 +188,26 @@ function App() {
       ) : typeof data === 'string' ? (
         <p className='press_enter'>{data}</p>
       ) : (
-        data.map((item, index) => (
-          <Bulletin
-            bulletin={item}
-            key={item.id}
-            ref={(element) => {
-              bulletins.current[index] = element;
-              if (index === 0) {
-                setFirstBulletin(element);
-              }
-            }}
-            onKeyDown={handleKeyDown}
-            onClick={() => {
-              handleClick(index);
-            }}
-          />
-        ))
+        <div className='bulletins'>
+          {data.map((item, index) => (
+            <Bulletin
+              bulletin={item}
+              key={item.id}
+              ref={(element) => {
+                bulletins.current[index] = element;
+                if (index === 0) {
+                  setFirstBulletin(element);
+                }
+              }}
+              onKeyDown={handleKeyDown}
+              onClick={() => {
+                handleClick(index);
+              }}
+            />
+          ))}
+        </div>
       )}
+      {data && <Info />}
       {isModalVisible && (
         <Modal
           props={{ type: modalType }}

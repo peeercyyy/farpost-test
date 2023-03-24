@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 const BulletinMain = ({ bulletin }) => {
   let counter = 1;
   return (
@@ -7,7 +9,12 @@ const BulletinMain = ({ bulletin }) => {
       </div>
       <div className="bulletin__main_subject_block">
         <div className='bulletin__main_subject_text_block'>
-          <p className='bulletin__main_subject_text'>{bulletin.bulletinText}</p>
+          <div className='bulletin__main_subject_text'>{bulletin.bulletinText.split('\n').map((item, i) => (
+    <Fragment key={i}>
+      {item}
+      <br />
+    </Fragment>
+  ))}</div>
         </div>
         <div className='bulletin__main_subject_rectangle'></div>
         <div className='bulletin__main_subject_gallery'>
